@@ -2,6 +2,7 @@
 // Kargo - Software Engineer Intern
 // April 26, 2021
 
+// Converts given integer into its phonetic string
 const intToPhonetic = (integer) => {
     switch(integer) {
         case 0:
@@ -27,12 +28,13 @@ const intToPhonetic = (integer) => {
     }
 }
 
+// Converts all integers in an array into its string array
 function intArrayToStringArray(intArray) {
     var stringArray = [];
     var phoneticString;
     for (var integer of intArray) {
         phoneticString = "";
-        while (integer > 1) {
+        while (integer >= 1) {
             var digit = integer % 10;
             integer = Math.floor(integer / 10);
             phoneticString = intToPhonetic(digit) + phoneticString;
@@ -42,11 +44,21 @@ function intArrayToStringArray(intArray) {
     return stringArray;
 }
 
-var ex = [3,25,209]
-var phoneticStringArray = intArrayToStringArray(ex);
-
-var returnString = phoneticStringArray[0];
-for (var i = 1; i < phoneticStringArray.length; i++) {
-    returnString += `,${phoneticStringArray[i]}`
+function main(argv) {
+    // stdin to int array
+    var intArray = [];
+    for (var i = 0; i < argv.length; i++) {
+        intArray.push(argv[i]);
+    }
+    // Convert int array to phonetic string array
+    var phoneticStringArray = intArrayToStringArray(intArray);
+    // Concatenate string array into one string
+    var returnString = phoneticStringArray[0];
+    for (var i = 1; i < phoneticStringArray.length; i++) {
+        returnString += `,${phoneticStringArray[i]}`
+    }
+    // Print string to stdout
+    console.log(returnString);
 }
-console.log(returnString);
+
+main(process.argv.slice(2));
