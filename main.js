@@ -25,6 +25,8 @@ const intToPhonetic = (integer) => {
             return "Eight";
         case 9:
             return "Nine";
+        default:
+            return "";
     }
 }
 
@@ -48,11 +50,14 @@ function main(argv) {
     // stdin to int array
     var intArray = [];
     for (var i = 0; i < argv.length; i++) {
-        intArray.push(argv[i]);
+        var integer = parseInt(argv[i]);
+        if (isNaN(integer)) continue;
+        intArray.push(integer);
     }
     // Convert int array to phonetic string array
     var phoneticStringArray = intArrayToStringArray(intArray);
     // Concatenate string array into one string
+    if (phoneticStringArray.length == 0) return;
     var returnString = phoneticStringArray[0];
     for (var i = 1; i < phoneticStringArray.length; i++) {
         returnString += `,${phoneticStringArray[i]}`
